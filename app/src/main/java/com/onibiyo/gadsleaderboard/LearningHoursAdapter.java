@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.onibiyo.gadsleaderboard.model.LearnersDetails;
 
 import java.util.List;
 

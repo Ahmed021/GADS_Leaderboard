@@ -1,4 +1,4 @@
-package com.onibiyo.gadsleaderboard;
+package com.onibiyo.gadsleaderboard.model;
 
 import com.google.gson.annotations.SerializedName;
 

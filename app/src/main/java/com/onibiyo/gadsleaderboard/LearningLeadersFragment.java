@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.onibiyo.gadsleaderboard.model.LearnersDetails;
 import com.onibiyo.gadsleaderboard.services.DataService;
 import com.onibiyo.gadsleaderboard.services.ServiceBuilder;
 

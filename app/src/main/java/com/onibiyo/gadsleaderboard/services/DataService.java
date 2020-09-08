@@ -1,6 +1,6 @@
 package com.onibiyo.gadsleaderboard.services;
 
-import com.onibiyo.gadsleaderboard.LearnersDetails;
+import com.onibiyo.gadsleaderboard.model.LearnersDetails;
 
 import java.util.List;
 
