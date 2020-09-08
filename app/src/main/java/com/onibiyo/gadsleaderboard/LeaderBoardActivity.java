@@ -25,7 +25,8 @@ public class LeaderBoardActivity extends AppCompatActivity
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(LeaderBoardActivity.this, ProjectSubmissionActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -53,6 +54,7 @@ public class LeaderBoardActivity extends AppCompatActivity
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
     }
 
     @Override

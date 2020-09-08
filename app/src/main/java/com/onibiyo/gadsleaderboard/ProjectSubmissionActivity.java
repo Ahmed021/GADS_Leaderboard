@@ -31,7 +31,7 @@ public class ProjectSubmissionActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ProjectSubmissionActivity.this, "Awesome", Toast.LENGTH_LONG).show();
+                Toast.makeText(ProjectSubmissionActivity.this, "Awesome", Toast.LENGTH_SHORT).show();
             }
         });
     }

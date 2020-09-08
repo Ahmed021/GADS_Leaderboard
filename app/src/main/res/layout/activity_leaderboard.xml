@@ -28,10 +28,11 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight="60"
+               android:paddingStart="30dp"
                android:fontFamily="sans-serif-medium"
                android:text="LEADERBOARD"
                android:textColor="#ffffff"
-               android:textSize="24sp" />
+               android:textSize="21sp" />
 
            <Button
                android:id="@+id/button"

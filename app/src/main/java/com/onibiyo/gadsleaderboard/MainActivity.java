@@ -9,7 +9,7 @@ import android.os.Looper;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static int SPLASH_SCREEN = 4000;
+    private static int SPLASH_SCREEN = 2500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

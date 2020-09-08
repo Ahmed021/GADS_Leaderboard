@@ -3,12 +3,23 @@ package com.onibiyo.gadsleaderboard;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.onibiyo.gadsleaderboard.services.DataService;
+import com.onibiyo.gadsleaderboard.services.ServiceBuilder;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -20,16 +31,12 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class LearningLeadersFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private List<LearnersDetails> mLearnersDetails;
+    private LearningHoursAdapter mAdapter;
+    RecyclerView mRecyclerView;
+    private View mView;
 
     public LearningLeadersFragment() {
         // Required empty public constructor
@@ -47,26 +54,52 @@ public class LearningLeadersFragment extends Fragment {
     public static LearningLeadersFragment newInstance(String param1, String param2) {
         LearningLeadersFragment fragment = new LearningLeadersFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_learning_leaders, container, false);
+        mView = inflater.inflate(R.layout.fragment_learning_leaders, container, false);
+        initView(mLearnersDetails);
+        getLearnersList();
+
+        return mView;
+    }
+
+    private void getLearnersList() {
+        DataService dataService = ServiceBuilder.buildService(DataService.class);
+        Call<List<LearnersDetails>> listCall = dataService.getLearningHours();
+
+        listCall.enqueue(new Callback<List<LearnersDetails>>() {
+            @Override
+            public void onResponse(Call<List<LearnersDetails>> call, Response<List<LearnersDetails>> response) {
+                mLearnersDetails = response.body();
+                initView(mLearnersDetails);
+            }
+
+            @Override
+            public void onFailure(Call<List<LearnersDetails>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Unable to load users", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void initView(List<LearnersDetails> learnersDetails) {
+        mRecyclerView = mView.findViewById(R.id.rv_learning_hours);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAdapter = new LearningHoursAdapter(getActivity(), learnersDetails);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
