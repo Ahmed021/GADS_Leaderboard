@@ -1,4 +1,4 @@
-package com.onibiyo.gadsleaderboard;
+package com.onibiyo.gadsleaderboard.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,24 +8,43 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.onibiyo.gadsleaderboard.R;
+import com.onibiyo.gadsleaderboard.adapter.SkillsLeaderAdapter;
+import com.onibiyo.gadsleaderboard.model.SkillLeader;
+import com.onibiyo.gadsleaderboard.services.DataService;
+import com.onibiyo.gadsleaderboard.services.ServiceBuilder;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SkillIQLeadersFragment.OnFragmentInteractionListener} interface
+ * {@link SkillsLeadersFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link SkillIQLeadersFragment#newInstance} factory method to
+ * Use the {@link SkillsLeadersFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SkillIQLeadersFragment extends Fragment {
+public class SkillsLeadersFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private List<SkillLeader> mSkillLeaders;
+    private SkillsLeaderAdapter mAdapter;
+    private RecyclerView mRecyclerView;
+    private View mView;
 
-    public SkillIQLeadersFragment() {
+
+    public SkillsLeadersFragment() {
         // Required empty public constructor
     }
 
@@ -35,11 +54,11 @@ public class SkillIQLeadersFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SkillIQLeadersFragment.
+     * @return A new instance of fragment SkillsLeadersFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SkillIQLeadersFragment newInstance(String param1, String param2) {
-        SkillIQLeadersFragment fragment = new SkillIQLeadersFragment();
+    public static SkillsLeadersFragment newInstance(String param1, String param2) {
+        SkillsLeadersFragment fragment = new SkillsLeadersFragment();
         Bundle args = new Bundle();
         return fragment;
     }
@@ -53,15 +72,39 @@ public class SkillIQLeadersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_skill_iqleaders, container, false);
+        mView = inflater.inflate(R.layout.fragment_skill_iqleaders, container, false);
+        init(mSkillLeaders);
+        getList();
 
-        // add recyclerView
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_skill_iq);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(new RecyclerSkillsAdapter());
+        return mView;
+    }
 
-        return view;
+    private void getList() {
+        DataService dataService = ServiceBuilder.buildService(DataService.class);
+        Call<List<SkillLeader>> call = dataService.getSkillsLeaders();
+
+        call.enqueue(new Callback<List<SkillLeader>>() {
+            @Override
+            public void onResponse(Call<List<SkillLeader>> call, Response<List<SkillLeader>> response) {
+                mSkillLeaders = response.body();
+                init(mSkillLeaders);
+            }
+
+            @Override
+            public void onFailure(Call<List<SkillLeader>> call, Throwable t) {
+                Log.d("Error", t.getLocalizedMessage());
+                Toast.makeText(getActivity(), "Unable to load users", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void init(List<SkillLeader> skillLeaders) {
+        mRecyclerView = mView.findViewById(R.id.rv_skill_iq);
+        mAdapter = new SkillsLeaderAdapter(getActivity(), mSkillLeaders);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

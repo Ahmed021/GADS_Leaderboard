@@ -1,8 +1,11 @@
-package com.onibiyo.gadsleaderboard;
+package com.onibiyo.gadsleaderboard.adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.onibiyo.gadsleaderboard.fragment.LearningLeadersFragment;
+import com.onibiyo.gadsleaderboard.fragment.SkillsLeadersFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
@@ -20,8 +23,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 LearningLeadersFragment learningLeadersFragment = new LearningLeadersFragment();
                 return learningLeadersFragment;
             case 1:
-                SkillIQLeadersFragment skillIQLeadersFragment = new SkillIQLeadersFragment();
-                return skillIQLeadersFragment;
+                SkillsLeadersFragment skillsLeadersFragment = new SkillsLeadersFragment();
+                return skillsLeadersFragment;
             default:
                 return null;
         }

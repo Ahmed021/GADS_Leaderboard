@@ -1,8 +1,9 @@
-package com.onibiyo.gadsleaderboard;
+package com.onibiyo.gadsleaderboard.fragment;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.onibiyo.gadsleaderboard.model.LearnersDetails;
+import com.onibiyo.gadsleaderboard.adapter.LearningLeadersAdapter;
+import com.onibiyo.gadsleaderboard.R;
+import com.onibiyo.gadsleaderboard.model.LearningLeader;
 import com.onibiyo.gadsleaderboard.services.DataService;
 import com.onibiyo.gadsleaderboard.services.ServiceBuilder;
 
@@ -34,9 +37,9 @@ import retrofit2.Response;
 public class LearningLeadersFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-    private List<LearnersDetails> mLearnersDetails;
-    private LearningHoursAdapter mAdapter;
-    RecyclerView mRecyclerView;
+    private List<LearningLeader> mLearningLeaders;
+    private LearningLeadersAdapter mAdapter;
+    private RecyclerView mRecyclerView;
     private View mView;
 
     public LearningLeadersFragment() {
@@ -62,7 +65,6 @@ public class LearningLeadersFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -70,7 +72,7 @@ public class LearningLeadersFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_learning_leaders, container, false);
-        initView(mLearnersDetails);
+        initView(mLearningLeaders);
         getLearnersList();
 
         return mView;
@@ -78,26 +80,27 @@ public class LearningLeadersFragment extends Fragment {
 
     private void getLearnersList() {
         DataService dataService = ServiceBuilder.buildService(DataService.class);
-        Call<List<LearnersDetails>> listCall = dataService.getLearningHours();
+        Call<List<LearningLeader>> listCall = dataService.getLearningLeaders();
 
-        listCall.enqueue(new Callback<List<LearnersDetails>>() {
+        listCall.enqueue(new Callback<List<LearningLeader>>() {
             @Override
-            public void onResponse(Call<List<LearnersDetails>> call, Response<List<LearnersDetails>> response) {
-                mLearnersDetails = response.body();
-                initView(mLearnersDetails);
+            public void onResponse(Call<List<LearningLeader>> call, Response<List<LearningLeader>> response) {
+                mLearningLeaders = response.body();
+                initView(mLearningLeaders);
             }
 
             @Override
-            public void onFailure(Call<List<LearnersDetails>> call, Throwable t) {
+            public void onFailure(Call<List<LearningLeader>> call, Throwable t) {
+                Log.d("Error", t.getLocalizedMessage());
                 Toast.makeText(getActivity(), "Unable to load users", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void initView(List<LearnersDetails> learnersDetails) {
+    private void initView(List<LearningLeader> learningLeaders) {
         mRecyclerView = mView.findViewById(R.id.rv_learning_hours);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new LearningHoursAdapter(getActivity(), learnersDetails);
+        mAdapter = new LearningLeadersAdapter(getActivity(), learningLeaders);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();

@@ -1,5 +1,6 @@
-package com.onibiyo.gadsleaderboard;
+package com.onibiyo.gadsleaderboard.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerSkillsAdapter extends RecyclerView.Adapter<RecyclerSkillsAdapter.ViewHolder> {
+import com.onibiyo.gadsleaderboard.R;
+import com.onibiyo.gadsleaderboard.model.SkillLeader;
 
-    private String[] skillsIQ = {"300",
-            "289", "276", "293",
-            "277", "255", "287",
-            "289"};
+import java.util.List;
 
-    private String[] learnersName = {"Kekayaan", "Teknologi",
-            "Keluarga", "Bisnis",
-            "Keluarga", "Hutang",
-            "Teknologi", "Pidana"};
+public class SkillsLeaderAdapter extends RecyclerView.Adapter<SkillsLeaderAdapter.ViewHolder> {
+
+    private Context mContext;
+    private List<SkillLeader> items;
+
+    public SkillsLeaderAdapter(Context context, List<SkillLeader> items) {
+        mContext = context;
+        this.items = items;
+    }
 
     @NonNull
     @Override
@@ -31,13 +35,15 @@ public class RecyclerSkillsAdapter extends RecyclerView.Adapter<RecyclerSkillsAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtLearnersName.setText(learnersName[position]);
-        holder.txtSkillIQ.setText(skillsIQ[position]);
+        SkillLeader item = items.get(position);
+
+        holder.txtLearnersName.setText(item.getName());
+        holder.txtSkillIQ.setText(mContext.getString(R.string.skill_leader_details, item.getScore(), item.getCountry()));
     }
 
     @Override
     public int getItemCount() {
-        return learnersName.length;
+        return items == null? 0: items.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

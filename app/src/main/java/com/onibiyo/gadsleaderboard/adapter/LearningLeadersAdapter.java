@@ -1,4 +1,4 @@
-package com.onibiyo.gadsleaderboard;
+package com.onibiyo.gadsleaderboard.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,19 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.onibiyo.gadsleaderboard.model.LearnersDetails;
+import com.onibiyo.gadsleaderboard.R;
+import com.onibiyo.gadsleaderboard.model.LearningLeader;
 
 import java.util.List;
 
-public class LearningHoursAdapter extends RecyclerView.Adapter<LearningHoursAdapter.ViewHolder> {
+public class LearningLeadersAdapter extends RecyclerView.Adapter<LearningLeadersAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<LearnersDetails> mLearnersDetails;
+    private List<LearningLeader> items;
 
-    public LearningHoursAdapter(Context context, List<LearnersDetails> learnersDetails) {
+    public LearningLeadersAdapter(Context context, List<LearningLeader> items) {
         mContext = context;
-        mLearnersDetails = learnersDetails;
+        this.items = items;
     }
 
     @NonNull
@@ -35,21 +35,15 @@ public class LearningHoursAdapter extends RecyclerView.Adapter<LearningHoursAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-       holder.txtLearnerName.setText(mLearnersDetails.get(position).getName());
-       int score = mLearnersDetails.get(position).getScore();
-       String country = mLearnersDetails.get(position).getCountry();
-       String image = mLearnersDetails.get(position).getBadgeUrl();
-       holder.txtLearningHours.setText(
-               new StringBuilder().append(score).append(" learning hours, ").append(country).toString()
-       );
-       if (image.isEmpty()) {
-           Glide.with(mContext).load(image).into(holder.imgLearning);
-       }
+        LearningLeader item = items.get(position);
+
+        holder.txtLearnerName.setText(item.getName());
+        holder.txtLearningHours.setText(mContext.getString(R.string.learning_leader_details, item.getHours(), item.getCountry()));
     }
 
     @Override
     public int getItemCount() {
-        return mLearnersDetails.size();
+        return items == null ? 0: items.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
