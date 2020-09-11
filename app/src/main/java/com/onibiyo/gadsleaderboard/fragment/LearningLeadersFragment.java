@@ -50,15 +50,11 @@ public class LearningLeadersFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment LearningLeadersFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LearningLeadersFragment newInstance(String param1, String param2) {
+    public static LearningLeadersFragment newInstance() {
         LearningLeadersFragment fragment = new LearningLeadersFragment();
-        Bundle args = new Bundle();
-
         return fragment;
     }
 

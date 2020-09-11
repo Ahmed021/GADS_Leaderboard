@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
-public class MainActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
-    private static int SPLASH_SCREEN = 2500;
+    private static int SPLASH_SCREEN = 1500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, LeaderBoardActivity.class);
+                Intent intent = new Intent(SplashActivity.this, LeaderBoardActivity.class);
                 startActivity(intent);
                 finish();
             }

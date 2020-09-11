@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical">
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:minHeight="0dp"
+        android:background="@drawable/bg_submit"
+        android:text="@string/submit"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:textStyle="bold"/>
+
+</FrameLayout>

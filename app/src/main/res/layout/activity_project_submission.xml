@@ -1,127 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProjectSubmissionActivity"
-    android:background="#000000">
+    tools:context=".SubmissionActivity"
+    android:background="@drawable/bkg"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="274dp"
-        android:layout_height="77dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/gadsresized" />
+    <!--
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="center_vertical"
+        android:minHeight="?actionBarStyle">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/bg_back"
+            android:padding="10dp"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="@android:color/white"/>
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="44dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/gads_logo" />
+    </LinearLayout>
+    -->
+
 
     <TextView
-        android:id="@+id/tv_project_submit"
-        android:layout_width="181dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="serif"
-        android:text="Project Submission"
-        android:background="#000000"
-        android:textColor="#F9A602"
-        android:textSize="18sp"
-        android:typeface="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:text="@string/project_submission"
+        android:textColor="#FFAE45"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
 
-    <EditText
-        android:id="@+id/first_name"
-        android:layout_width="188dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/et_style"
-        android:backgroundTint="#ffffff"
-        android:fontFamily="sans-serif-medium"
-        android:hint="First Name"
-        android:inputType="textPersonName"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/grad_line_new" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
         android:paddingStart="10dp"
-        android:textColor="#A09D9C"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/last_name"
-        app:layout_constraintHorizontal_bias="0.461"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_project_submit" />
+        android:paddingTop="60dp"
+        android:paddingEnd="10dp">
 
-    <EditText
-        android:id="@+id/last_name"
-        android:layout_width="180dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/et_style"
-        android:backgroundTint="#ffffff"
-        android:ems="10"
-        android:fontFamily="sans-serif-medium"
-        android:hint="Last Name"
-        android:inputType="textPersonName"
-        android:paddingStart="10dp"
-        android:textColor="#A09D9C"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/email_address"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/first_name"
-        app:layout_constraintVertical_bias="0.0" />
+        <EditText
+            android:id="@+id/txtFirstName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/first_name"
+            android:inputType="textPersonName"
+            android:autofillHints=""
+            android:ems="10"
+            android:nextFocusDown="@id/txtLastName"
+            app:layout_constraintEnd_toStartOf="@+id/txtLastName"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <EditText
-        android:id="@+id/email_address"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/et_style"
-        android:backgroundTint="#ffffff"
-        android:fontFamily="sans-serif-medium"
-        android:hint="Email Address"
-        android:inputType="textEmailAddress"
-        android:paddingStart="10dp"
-        android:textColor="#A09D9C"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/last_name"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/first_name"
-        app:layout_constraintTop_toBottomOf="@+id/first_name" />
+        <EditText
+            android:id="@+id/txtLastName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="@string/last_name"
+            android:layout_marginStart="10dp"
+            android:ems="10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtFirstName"
+            app:layout_constraintTop_toTopOf="parent"
+            android:autofillHints=""/>
 
-    <EditText
-        android:id="@+id/project_link"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/et_style"
-        android:backgroundTint="#ffffff"
-        android:fontFamily="sans-serif-medium"
-        android:hint="Project on GITHUB (link)"
-        android:inputType="textUri"
-        android:paddingStart="10dp"
-        android:textColor="#A09D9C"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/last_name"
-        app:layout_constraintStart_toStartOf="@+id/first_name"
-        app:layout_constraintTop_toBottomOf="@+id/email_address" />
+        <EditText
+            android:id="@+id/txtEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="50dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:hint="@string/email_address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtFirstName"
+            android:autofillHints="" />
 
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="174dp"
-        android:layout_height="49dp"
-        android:background="@drawable/btn_style"
-        android:backgroundTint="#f9a902"
-        android:text="Button"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="19sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/project_link"
-        app:layout_constraintStart_toStartOf="@+id/project_link"
-        app:layout_constraintTop_toBottomOf="@+id/project_link" />
+        <EditText
+            android:id="@+id/txtProjectUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="50dp"
+            android:ems="10"
+            android:inputType="textUri"
+            android:hint="@string/project_on_github_link"
+            app:layout_constraintTop_toBottomOf="@+id/txtEmail"
+            tools:layout_editor_absoluteX="0dp"
+            android:importantForAutofill="no" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/grad_btn"
+            android:minWidth="150dp"
+            android:text="@string/submit"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtProjectUrl" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

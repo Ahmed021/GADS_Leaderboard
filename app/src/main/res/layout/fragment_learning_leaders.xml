@@ -5,20 +5,24 @@
     android:layout_height="match_parent"
     tools:context=".fragment.LearningLeadersFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_learning_hours"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="1dp"
+            tools:itemCount="5"
+            tools:listitem="@layout/card_learning_hours"
             />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/emptyView"
+        layout="@layout/list_empty_view"
+        android:visibility="gone"/>
 
 </FrameLayout>

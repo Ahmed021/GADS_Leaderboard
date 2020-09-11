@@ -1,37 +1,38 @@
 package com.onibiyo.gadsleaderboard.adapter;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.onibiyo.gadsleaderboard.fragment.LearningLeadersFragment;
 import com.onibiyo.gadsleaderboard.fragment.SkillsLeadersFragment;
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class PagerAdapter extends FragmentStateAdapter {
 
-    private int mNoOfTabs;
-
-    public PagerAdapter(FragmentManager fm, int noOfTabs) {
-        super(fm);
-         this.mNoOfTabs = noOfTabs;
+    public PagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+        super(fragmentActivity);
     }
 
+    @NonNull
     @Override
-    public Fragment getItem(int position) {
+    public Fragment createFragment(int position) {
+        Fragment fragment = null;
         switch (position) {
             case 0:
-                LearningLeadersFragment learningLeadersFragment = new LearningLeadersFragment();
-                return learningLeadersFragment;
+                fragment = LearningLeadersFragment.newInstance();
+                break;
             case 1:
-                SkillsLeadersFragment skillsLeadersFragment = new SkillsLeadersFragment();
-                return skillsLeadersFragment;
-            default:
-                return null;
+                fragment = SkillsLeadersFragment.newInstance();
+                break;
         }
+        return fragment;
     }
 
     @Override
-    public int getCount() {
-        return mNoOfTabs;
+    public int getItemCount() {
+        return 2;
     }
 }
